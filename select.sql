@@ -33,7 +33,6 @@ select idcurso, nome from cursos
 where ano in ('2014', '2016', '2018')
 order by nome;
 
-
 --Combinando testes
 
 select * from cursos
@@ -127,5 +126,67 @@ where sexo = 'F' and nacionalidade <> 'Brasil' and nascimento between '1990-01-0
 select count(*)
 from gafanhotos
 where sexo = 'F' and altura > '1.90';
+
+--Funções de agrupamento
+
+--agrupando registros
+select carga from cursos
+group by carga;
+
+--agrupando e agregando
+select carga, count(nome) from cursos
+group by carga;
+
+
+select carga, count(nome) from cursos
+group by carga
+having count(nome) >3;
+
+
+select ano, count(*) from cursos
+where totaulas > 30
+group by ano
+having ano > 2016
+order by count(*) desc;
+
+
+select carga, count(*) from cursos
+where ano > 2015
+group by carga
+having carga > (select avg(carga) from cursos)
+
+--Exerícios
+
+-- uma lista com as profissões dos gafanhotos e seus respectivos quantitativos
+select profissao, count(*) 
+from gafanhotos
+group by profissao;
+
+
+-- quantos gafanhotos homens e quantas gafanhotos mulheres nasceram após 01-01-2005?
+
+select sexo, count(*)
+from gafanhotos
+where nascimento > '2005-01-01'
+group by sexo;
+
+
+-- uma lista de gafanhotos que nasceram fora do Brasil, mostrando o país de origem e o total de pessoas nascidas lá.
+-- só nos interessam os países que tiveam mais de 3 gafanhotos com essa nacionalidade
+
+select nome, nacionalidade, count(nacionalidade)
+from gafanhotos
+where nacionalidade <> 'Brasil'
+group by nacionalidade
+having count(nacionalidade) > 3;
+
+
+-- uma lista agrupada pela altura dos gafanhotos, mostrando quantas pessoas pesam mais de 100 kg e que estão acima da média de altura de todos os cadastrados
+
+select nome, altura, avg(altura), count(*)
+from gafanhotos
+where peso > 100
+group by altura
+having altura > (select avg(altura) from gafanhotos);
 
 
