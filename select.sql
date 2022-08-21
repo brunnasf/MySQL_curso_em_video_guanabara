@@ -172,7 +172,7 @@ group by sexo;
 
 
 -- uma lista de gafanhotos que nasceram fora do Brasil, mostrando o país de origem e o total de pessoas nascidas lá.
--- só nos interessam os países que tiveam mais de 3 gafanhotos com essa nacionalidade
+-- só nos interessam os países que tiveram mais de 3 gafanhotos com essa nacionalidade
 
 select nome, nacionalidade, count(nacionalidade)
 from gafanhotos
